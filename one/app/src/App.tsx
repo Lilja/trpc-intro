@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { trpc } from "./api";
 import {Greeter} from "./Greeter.js";
+import {AuditLog} from "./AuditLog.js";
 
 export default function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -19,7 +20,8 @@ export default function App() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <Greeter />
+          <Greeter />
+          <AuditLog />
       </QueryClientProvider>
     </trpc.Provider>
   );

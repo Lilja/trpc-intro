@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { trpc } from "./api";
 
 export function Greeter() {
-  const hello = trpc.greetFunconFour.useQuery({ name: "Lilja" });
-  if (!hello.data) {
-    return <div>Loading</div>;
-  } else {
-    return <div>{hello.data}</div>;
+  const response = trpc.greetFunconFour.useQuery({name: "Erik"})
+  const data = response.data;
+  if (!data) {
+    return <div>Loading</div>
   }
+  return <div>{data.output}</div>
 }
