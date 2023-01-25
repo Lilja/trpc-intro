@@ -3,17 +3,10 @@ import { trpc } from "./api";
 import {isFailure, isSuccess} from "./utils"
 
 export function AuditLog() {
-  const response = trpc.getLogs.useQuery({token: "abcdefghikl", userId: "editor"});
+  const data = trpc.getLogs.useQuery({token: "abc", userId: "123"});
+  const resp = data.data;
 
-  const data = response.data;
-
-  if (!data) {
+  if (!resp) {
     return <div>Loading</div>
-  }
-
-  if (isFailure(data)) {
-    return <div>{data.error}</div>
-  } else {
-    return <div>{data.data}</div>
   }
 }

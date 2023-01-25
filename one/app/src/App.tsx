@@ -21,8 +21,8 @@ export default function App() {
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
           <Greeter />
-          <AuditLog />
       </QueryClientProvider>
     </trpc.Provider>
   );
 }
+// <AuditLog />

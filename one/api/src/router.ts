@@ -10,28 +10,24 @@ const t = initTRPC.context<Context>().create();
 
 export const appRouter = t.router({
   greetFunconFour: t.procedure
-    .input(z.object({
-      name: z.string()
-    }))
-    .query(({ input }) => {
-      return {
-        output: "Hello, " + input.name + "!"
-      };
-    }),
+  .input(z.string())
+  .query(({input}) => {
+    return "Hi " + input + "!";
+  }),
   getLogs: t.procedure
-    .input(z.object({
-      token: z.string().min(10),
-      userId: z.string(),
-    }))
-    .query(({ input }): Result<string[], "Unauthorised" | "No permissions"> => {
-      if (input.token !== "abcdefghikl") {
-        return failure("Unauthorised");
-      }
-      if (input.userId !== "editor") {
-        return failure("No permissions");
-      }
-      return success(["Someone did something"]);
-    })
+  .input(z.object({userId: z.string(), token: z.string()}))
+  .query(({input}): Result<string[], "Unauthorized" | "No permissions"> => {
+    if (input.token !== "abc") {
+      return failure("Unauthorized")
+    }
+    else if (input.userId != "123") {
+      return failure("No permissions")
+    }
+    else {
+      return success(["a", "b", "c"])
+    }
+  })
+
 });
 
 export type AppRouter = typeof appRouter;
