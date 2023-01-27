@@ -8,7 +8,7 @@ export type Failure<T> = {
     tag: "failure"
 }
 
-export type Result<S, F> = Success<S> | Failure<F>
+export type Result<S, F> = Success<S> | Failure<F>
 
 export const isSuccess = <S, F>(r: Result<S, F>): r is Success<S> => r.tag === "success";
 export const isFailure = <S, F>(r: Result<S, F>): r is Failure<F> => r.tag === "failure";
