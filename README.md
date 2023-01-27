@@ -1,67 +1,8 @@
-# If demo fails
+# Funcon4 talk 2023-01-26
 
-```typescript
-// router.ts
-  greetFunconFour: t.procedure
-    .input(z.object({
-      name: z.string()
-    }))
-    .query(({ input }) => {
-      return {
-        output: "Hello, " + input.name + "!"
-      };
-    }),
+This is a talk I held internally at [funnel](https://funnel.io), talking about tRPC.
 
-  getLogs: t.procedure
-    .input(z.object({
-      token: z.string().min(10),
-      userId: z.string(),
-    }))
-    .query(({ input }): Result<string[], "Unauthorised" | "No permissions"> => {
-      if (input.token !== "abcdefghikl") {
-        return failure("Unauthorised");
-      }
-      if (input.userId !== "editor") {
-        return failure("No permissions");
-      }
-      return success(["Someone did something"]);
-    })
+Relevant code should be in `app/src/component.ts` and `api/src/router.ts`. 
 
-```
+Feel free to reach out if you have questions!
 
-
-```typescript
-// Greeter.tsx
-  const response = trpc.greetFunconFour.useQuery({name: "Erik"})
-  const data = response.data;
-  if (!data) {
-    return <div>Loading</div>
-  }
-  return <div>{data.output}</div>
-```
-
-```typescript
-// Greeter.tsx
-  const response = trpc.greetFunconFour.useQuery({name: "Erik"})
-  const data = response.data;
-  if (!data) {
-    return <div>Loading</div>
-  }
-  return <div>{data.output}</div>
-```
-
-```typescript
-  const response = trpc.getLogs.useQuery({token: "abcdefghikl", userId: "editor"});
-
-  const data = response.data;
-
-  if (!data) {
-    return <div>Loading</div>
-  }
-
-  if (isFailure(data)) {
-    return <div>{data.error}</div>
-  } else {
-    return <div>{data.data}</div>
-  }
-```
